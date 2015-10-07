@@ -1,6 +1,4 @@
-Strava.NET Samples
+Starbro
 =============
 
-The only thing you have to do is assigning a valid auth token from Strava to the variable "token".
-
-Please send me your feedback to strava@sascha-simon.com
+Please send me your feedback to richbrownesq@gmail.com
