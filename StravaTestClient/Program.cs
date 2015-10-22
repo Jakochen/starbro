@@ -60,17 +60,28 @@ namespace StravaTestClient
 
             #region Activities
 
-            var activities = client.Activities.GetActivities(new DateTime(2015, 1, 1), DateTime.Now);
+            var startDate = DateTime.Now.AddDays(-112);
+
+            var activities = client.Activities.GetActivities(startDate, DateTime.Now);
             //var activitiesAsync = await client.Activities.GetActivitiesAsync(new DateTime(2014, 1, 1), DateTime.Now);
 
+            var runs = activities.Where(x => x.Type == ActivityType.Run).ToList();
+            var longruns = runs.Where(x => x.Distance > 26000).ToList();
+            var top5longruns = longruns.OrderByDescending(x => x.Distance).Take(5);
+            //Console.WriteLine("Async: " + activitiesAsync.Count);
             
-            foreach (var item in activities)
+            foreach (var item in runs)
             {
                 Console.WriteLine(item.Name);
+                Console.WriteLine(item.Distance);
+                   
             }
 
-            Console.WriteLine("Sync: " + activities.Count);
-            //Console.WriteLine("Async: " + activitiesAsync.Count);
+            Console.WriteLine("Total Runs: " + runs.Count);
+            Console.WriteLine("Total KMs: " + runs.Sum(x => x.Distance));
+            Console.WriteLine("Total Long Runs: " + longruns.Count);
+            Console.WriteLine("Total Long Runs KMs: " + longruns.Sum(x => x.Distance));
+            Console.WriteLine("Total Distance Top 5 Long Runs: " + top5longruns.Sum(x => x.Distance));
 
             #endregion
 
