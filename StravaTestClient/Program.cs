@@ -32,8 +32,26 @@ namespace StravaTestClient
     {
         public static void Main(String[] args)
         {
-            Test();
+            ShowSummaryData();
             Console.ReadLine();
+        }
+
+        private static void ShowSummaryData()
+        {
+            var token = "e2e838ab0491e56e094ae18db4b27ade1c840ab2";
+
+            StravaMediator s = new StravaMediator(token);
+
+            var end = new DateTime(2013, 4, 19);
+            var start = end.AddDays(-112);
+
+            var t = s.GetLongRuns(start, end);
+            var avg = s.GetAveragePace(t);
+
+            Console.WriteLine("TotalLongRuns = " + t.Count);
+            Console.WriteLine("TotalAveragePace = " + avg);
+            Console.WriteLine("TotalAveragePace = " + s.GetFormatedPace(avg));
+
         }
 
         public async static void Test()
@@ -43,6 +61,7 @@ namespace StravaTestClient
             // Please use your own, valid token!
             const String token = "e2e838ab0491e56e094ae18db4b27ade1c840ab2";
 
+            
             // Use either the static authentication method or use the WebAuthentication method.
             StaticAuthentication auth = new StaticAuthentication(token);
 

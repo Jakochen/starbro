@@ -8,15 +8,16 @@ namespace Starbro.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
-            return View();
+            var result = new FilePathResult("~/index.html", "text/html");
+            return result;
+           // return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
